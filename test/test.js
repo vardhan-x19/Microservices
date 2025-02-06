@@ -1,22 +1,20 @@
 const autocannon = require('autocannon');
 
-const config = {
-  url: 'http://localhost:3000/', // Target URL
-  connections: 10,              // Number of concurrent users
-  duration: 10,                  // Test duration (seconds)
-  workers: 2,                    // Number of worker threads
-  headers: {                     // Optional headers
-    'Content-Type': 'application/json',
-  },
-  requests: [{                   // Custom request (e.g., POST)
-    method: 'GET',
-    path: '/api/data',
-    body: JSON.stringify({ key: 'value' })
-  }]
+const urls = ['http://localhost:3000', 'http://localhost:3000/stress'];
+
+const runTest = async (url) => {
+  const instance = autocannon({
+    url,
+    connections: 10,  // number of concurrent connections
+    duration: 10,     // test duration in seconds
+  });
+
+  // Log the number of requests
+  instance.on('done', (result) => {
+    console.log(`Number of requests for ${url}:`, result.requests.total);
+  });
 };
 
-// Run the test
-autocannon(config, (err, result) => {
-  if (err) throw err;
-  console.log('Load test results:', result);
-});
+
+// Run tests for both URLs
+urls.forEach(runTest);
