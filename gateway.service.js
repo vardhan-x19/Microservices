@@ -9,10 +9,10 @@ app.use('/', createProxyMiddleware({
 }));
 
 app.use('/stress', createProxyMiddleware({
-  target: 'http://localhost:3001/stress',
+  target: 'http://localhost:3001',
   changeOrigin: true,
 }));
 
-app.listen(3000, () => {
-  console.log('Gateway service is running on http://localhost:3000');
+app.listen(3005, () => {
+  console.log('Gateway service is running on http://localhost:3005');
 });

@@ -10,5 +10,5 @@ app.get('/stress',(req,res)=>{
 })
 
 app.listen(3001,()=>{
-  console.log(`PORT 3001`);
+  console.log(` the stress server on port 3001`);
 })
